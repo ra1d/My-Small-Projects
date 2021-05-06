@@ -1,0 +1,142 @@
+.content {
+    width: 500px;
+    margin: 0 auto;
+}
+.input-box {
+    width: 100%;
+}
+.table-box {
+    width: 100%;
+}
+table {
+    width: 100%;
+}
+input {
+    margin: 5px;
+    
+}
+h1 {
+    text-align: center;
+}
+.input-box {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    align-items: center;
+}
+#amount {
+    flex: 1 1 auto;
+}
+#date {
+    flex: 1 1 auto;
+}
+#name {
+    flex: 2 0 400px;
+    position: relative;
+}
+#addBtn {
+    display: block;
+    margin: 15px auto;
+    text-align: center;
+    
+}
+label {
+    position: relative;
+}
+
+button {
+    cursor: pointer;
+}
+tfoot > tr > td:first-child {
+    text-align: center;
+    font-weight: bold;
+}
+td, th {
+    padding: 5px;
+}
+th {
+    background-color: rgb(174, 198, 243);
+}
+table {
+    border-collapse: collapse;
+  }
+table, th, td {
+    border: 2px solid #000;;
+}
+tr:nth-child(even) {
+    background-color: blanchedalmond;
+}
+
+label.name.notification::after {
+    content: 'заполните это поле';
+    background-color: rgb(245, 245, 31);
+    padding: 5px 8px;
+    border-radius: 5px;
+    display: block;
+    position: absolute;
+    left: 20px;
+    bottom: 23px;
+    z-index: 5;
+    white-space: nowrap;
+}
+label.name.notification::before {
+    content: '';
+    position: absolute;
+    display: block;
+    z-index: 10;
+    left: 80px;
+    bottom: 4px;
+    border: 10px solid black;
+    border-color: rgb(245, 245, 31) transparent transparent transparent;
+}
+
+label.date.notification::after {
+    content: 'заполните это поле';
+    background-color: rgb(245, 245, 31);
+    padding: 5px 8px;
+    border-radius: 5px;
+    display: block;
+    position: absolute;
+    left: 20px;
+    bottom: -35px;
+    z-index: 5;
+    white-space: nowrap;
+}
+label.date.notification::before {
+    content: '';
+    position: absolute;
+    display: block;
+    z-index: 10;
+    left: 80px;
+    bottom: -8px;
+    border: 10px solid black;
+    border-color: transparent transparent rgb(245, 245, 31) transparent;
+}
+
+label.amount.notification::after {
+    content: 'заполните это поле';
+    background-color: rgb(245, 245, 31);
+    padding: 5px 8px;
+    border-radius: 5px;
+    display: block;
+    position: absolute;
+    /* border: 1px solid #000; */
+    left: 20px;
+    bottom: -35px;
+    z-index: 5;
+    white-space: nowrap;
+}
+label.amount.notification::before {
+    content: '';
+    position: absolute;
+    display: block;
+    z-index: 10;
+    left: 80px;
+    bottom: -8px;
+    border: 10px solid black;
+    border-color:  transparent transparent rgb(245, 245, 31) transparent;
+}
+
+/* .notification {
+    transform: scale(1);
+} */

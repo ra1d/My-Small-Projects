@@ -1,0 +1,32 @@
+.content {
+    text-align: center;
+    width: 400px;
+    border: 1px solid #000;
+    border-radius: 10px;
+    padding-bottom: 20px;
+    margin: 50px auto;
+}
+button {
+    cursor: pointer;
+}
+ul li {
+    list-style: none;
+    display: flex;
+    margin-right: 40px;
+    margin-bottom: 5px;
+}
+li span {
+    /* color: red; */
+    margin-right: auto;
+}
+li button {
+    margin-right: 5px;
+}
+.comlete {
+    text-decoration: line-through;
+}
+.important {
+    font-weight: bold;
+}
+
+
