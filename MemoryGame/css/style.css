@@ -17,23 +17,9 @@
     width: 200px;
     height: 200px;
     flex: 1 1 auto;
-    /* cursor: pointer;
-    border: 1px solid #000;
-    box-shadow: 1px 2px 2px black; */
     position: relative;
-    /* overflow: hidden; */
-    /* z-index: 999; */
 }
 
-/* .pic-box::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: black;
-} */
 .card {
     position: absolute;
     width: 100%;
@@ -41,6 +27,8 @@
     left: 0;
     top: 0;
 
+    background-position: center;
+    background-repeat: no-repeat;
     cursor: pointer;
     border: 1px solid #000;
     box-shadow: 1px 2px 2px black;
@@ -57,14 +45,6 @@
     transition: all ease-in-out 500ms
 }
 
-/* .card.open::before {
-    transform: translateY(50deg);
-    transform: rotateY(90deg);
-    transition: all ease-out 500ms;
-} */
-/* .card.open.block-cursor {
-    cursor: auto;
-} */
 .card.open {
     cursor: auto;
 }
@@ -80,29 +60,6 @@
     /* transition: all ease-out 500ms; */
 }
 
-/* .card.open:hover {
-    transform: rotateY(0deg);
-    transition: all ease-out 500ms;
-} */
-
-
-
-/* .back {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    left: 0;
-    top: 0;
-  
-
-} */
-
-/* img {
-    flex: 1 1 auto;
-    cursor: pointer;
-    border: 1px solid #000;
-    box-shadow: 1px 2px 2px black;
-} */
 .control-box {
     display: flex;
     justify-content: space-around;
@@ -150,10 +107,6 @@ label {
     margin-top: 5px;
     font-size: 1.2rem;
 }
-
-
-
-
 
 
 #img1 {

@@ -33,8 +33,6 @@ function cardRandomiser(arr) {
     }
 }
 
-
-
 function openCard(e) {
     e.target.classList.add('open');
 
@@ -89,19 +87,15 @@ function newGameFn() {
         cards.forEach(allCards => allCards.classList.remove('matched'));
     },500); 
     setTimeout(() => cardRandomiser(cardBox), 500);
+    cards.forEach(card => card.addEventListener('click', openCard));
     input.value = '0';
 }
 
 function giveUpFn() {
     cards.forEach(allCards => allCards.classList.add('open'));
+    cards.forEach(card => card.removeEventListener('click', openCard));
 }
 
-// работает
-// function moveCount() {
-//     let x = input.value;
-//     x = Number(x) + 1;
-//     input.value = x;
-// }
 function moveCount(inpValue) {
     let x = inpValue.value;
     x = Number(x) + 1;
@@ -111,11 +105,6 @@ function moveCount(inpValue) {
 newGameBtn.addEventListener('click', newGameFn);
 
 giveUpBtn.addEventListener('click', giveUpFn);
-
-
-// newGameBtn.addEventListener('click', () => {
-//     cardRandomiser(cardBox);
-// });
 
 window.onload = function() {
     cardRandomiser(cardBox);
