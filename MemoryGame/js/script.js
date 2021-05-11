@@ -1,6 +1,14 @@
 let cardBox = document.querySelectorAll('.pic-box');
 let newGameBtn = document.querySelector('#new-game-btn');
+let giveUpBtn = document.querySelector('#give-up-btn');
+let cards = document.querySelectorAll('.card'); 
+let input = document.querySelector('#input');
+let cardArr = [];
 let numberArray = [];
+
+
+
+// простой рандомайзер
 // function cardRandomiser(arr) {
 //     for(let i = 0; i < arr.length; i++) {
 //         arr[i].style.order = '';
@@ -8,7 +16,7 @@ let numberArray = [];
 //     }
 // }
 
-
+// рандомайзер без повторов
 function cardRandomiser(arr) {
         numberArray.splice(0);
         do {
@@ -25,8 +33,7 @@ function cardRandomiser(arr) {
     }
 }
 
-let cardArr = [];
-let cards = document.querySelectorAll('.card'); 
+
 
 function openCard(e) {
     e.target.classList.add('open');
@@ -48,8 +55,10 @@ function openCard(e) {
 
             setTimeout(function() {
                 cards.forEach(card => card.addEventListener('click', openCard));
-            }, 1000);
+            }, 1200);
             
+
+            moveCount(input);
             cardArr.splice(0);
         } else if((cardArr[0] != cardArr[1]) && (cardArr.length == 2)){
             let firstArrCards = document.querySelectorAll(`[data-pic-name='${cardArr[0]}']`);
@@ -65,18 +74,48 @@ function openCard(e) {
 
             setTimeout(function() {
                 cards.forEach(card => card.addEventListener('click', openCard));
-            }, 1000);
+            }, 1200);
 
+
+            moveCount(input);
             cardArr.splice(0);
         }
     }
 }
 
+function newGameFn() {
+    cards.forEach(allCards => allCards.classList.remove('open'));
+    setTimeout( function() {
+        cards.forEach(allCards => allCards.classList.remove('matched'));
+    },500); 
+    setTimeout(() => cardRandomiser(cardBox), 500);
+    input.value = '0';
+}
+
+function giveUpFn() {
+    cards.forEach(allCards => allCards.classList.add('open'));
+}
+
+// работает
+// function moveCount() {
+//     let x = input.value;
+//     x = Number(x) + 1;
+//     input.value = x;
+// }
+function moveCount(inpValue) {
+    let x = inpValue.value;
+    x = Number(x) + 1;
+    inpValue.value = x;
+}
+
+newGameBtn.addEventListener('click', newGameFn);
+
+giveUpBtn.addEventListener('click', giveUpFn);
 
 
-newGameBtn.addEventListener('click', () => {
-    cardRandomiser(cardBox);
-})
+// newGameBtn.addEventListener('click', () => {
+//     cardRandomiser(cardBox);
+// });
 
 window.onload = function() {
     cardRandomiser(cardBox);
