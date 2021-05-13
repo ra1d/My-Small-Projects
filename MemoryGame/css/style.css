@@ -134,3 +134,83 @@ label {
     order: 1;
     background-image: url('../images/svin.jpg');
 }
+
+/* pop up settings */
+
+.modal {
+    display: grid;
+    grid-template-rows: 2fr 1fr 1fr;
+    box-sizing: border-box;
+    position: fixed;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    transition: 200ms ease-in-out;
+    border: 1px solid black;
+    border-radius: 5px;
+    box-shadow: 0px 0px 8px black;
+    z-index: 10;
+    background-color: blanchedalmond;
+    width: 250px;
+    height: 125px;
+    padding-bottom: 5px;
+  }
+  
+  .modal.active {
+    transform: translate(-50%, -50%) scale(1);
+  }
+  
+  .modal__header {
+    font-size: 1.25rem;
+    text-transform: uppercase;
+    font-weight: bold;
+    color: brown;
+    /* margin: auto; */
+    align-self: end;
+    justify-self: center;
+    padding-bottom: .5rem;
+  }
+
+  .moves-count {
+    margin: auto;
+    font-size: 1.2rem;
+  }
+  
+  .modal__close-btn {
+    position: absolute;
+    width: auto;
+    right: 0;
+    cursor: pointer;
+    border: none;
+    outline: none;
+    background: none;
+    font-size: 1.5rem;
+    font-weight: bold;
+    
+  }
+
+  .modal__new-game-btn {
+    font-size: 1.1rem;
+    border-radius: 5px;
+    width: 60%;
+    margin: auto;
+    cursor: pointer;
+    background-color: lavenderblush;
+  }
+  
+  #overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, .3);
+    opacity: 0;
+    transition: 200ms ease-in-out;
+    pointer-events: none;
+  }
+
+  #overlay.active {
+    opacity: 1;
+    pointer-events: all;
+  }
