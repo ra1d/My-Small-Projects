@@ -2,9 +2,8 @@ let cardBox = document.querySelectorAll('.pic-box');
 let newGameBtn = document.querySelector('#new-game-btn');
 let giveUpBtn = document.querySelector('#give-up-btn');
 let cards = document.querySelectorAll('.card'); 
-let input = document.querySelector('#input');
-let cardArr = [];
-let numberArray = [];
+let movesCount = document.querySelector('#input');
+let openCards = [];
 let matchedCardsNumber = 0;
 
 const modal = document.querySelector('.modal');
@@ -23,74 +22,82 @@ const modalMovesAmount = document.querySelector('.moves-count');
 
 // рандомайзер без повторов
 function cardRandomiser(arr) {
-        numberArray.splice(0);
-        do {
-            let ranNum;
-            ranNum = Math.floor(Math.random() * arr.length + 1);
-            if(!numberArray.includes(ranNum)) {
-                numberArray.push(ranNum);
-        }
-    } while (numberArray.length < Number(arr.length));
+    const cardOrders = [...Array(arr.length).keys()];
+    for (let i = 0; i < arr.length; i++) {
+        const randNumber = Math.floor(Math.random() * (arr.length - 1));
+        [cardOrders[randNumber], cardOrders[randNumber + 1]] = [cardOrders[randNumber + 1], cardOrders[randNumber]];
+    }
 
-    for(let i = 0; i < arr.length; i++) {
-        arr[i].style.order = '';
-        arr[i].style.order = numberArray[i];
+    for (let i = 0; i < arr.length; i++) {
+        arr[i].style.order = cardOrders[i];
     }
 }
 
 function openCard(e) {
     e.target.classList.add('open');
 
-    if(cardArr.length < 2) {
-        cardArr.push(e.target.dataset.picName);
-        e.target.removeEventListener('click', openCard);
+    openCards.push(e.target.dataset.picName);
+    disableOpeningCards(e.target);
 
-        if(cardArr.length > 1) {
-            cards.forEach(card => card.removeEventListener('click', openCard));
-        }
+    if (openCards.length > 1) {
+        cards.forEach(card => disableOpeningCards(card));
+    }
 
-        if((cardArr[0] == cardArr[1]) && (cardArr.length == 2)){
-            let matchedCardArr = document.querySelectorAll(`[data-pic-name='${cardArr[1]}']`);
-
-            setTimeout(function() {
-                matchedCardArr.forEach(matchCards => matchCards.classList.add('matched'));
-            }, 1000);
-
-            setTimeout(function() {
-                cards.forEach(card => card.addEventListener('click', openCard));
-            }, 1200);
-            
-
-            moveCount(input);
-            cardArr.splice(0);
-
-            addMatchedCardsNumber();
-            if(matchedCardsNumber === (cardBox.length / 2)) {
-                console.log('you win!');
-                setTimeout(() => openModal(), 1500);
-                modalMovesAmount.textContent = `сделано ходов: ${input.value}`;
+    if (openCards.length === 2) {
+        if (areMatchingCards()) {
+            markCardsMatched(document.querySelectorAll(`[data-pic-name='${openCards[1]}']`));
+            endTurn();
+            matchedCardsNumber++;
+            if (matchedCardsNumber === (cardBox.length / 2)) {
+                displayWinMessage();
             }
-        } else if((cardArr[0] != cardArr[1]) && (cardArr.length == 2)){
-            let firstArrCards = document.querySelectorAll(`[data-pic-name='${cardArr[0]}']`);
-            let secondArrCards = document.querySelectorAll(`[data-pic-name='${cardArr[1]}']`);
-
-            setTimeout(function() {
-                firstArrCards.forEach(matchCards => matchCards.classList.remove('open'));
-            }, 1000);
-            setTimeout(function() {
-                secondArrCards.forEach(matchCards => matchCards.classList.remove('open'));
-            }, 1000);
-
-
-            setTimeout(function() {
-                cards.forEach(card => card.addEventListener('click', openCard));
-            }, 1200);
-
-
-            moveCount(input);
-            cardArr.splice(0);
+        } else {
+            closeCards(document.querySelectorAll('.open'));
+            endTurn();
         }
     }
+}
+
+function areMatchingCards() {
+    return openCards[0] === openCards[1];
+}
+
+function markCardsMatched(matchedCards) {
+    setTimeout(function () {
+        matchedCards.forEach(card => card.classList.add('matched'));
+    }, 1000);
+}
+
+function closeCards(openCards) {
+    setTimeout(function () {
+        openCards.forEach(card => card.classList.remove('open'));
+    }, 1000);
+}
+
+function displayWinMessage() {
+    console.log('you win!');
+    setTimeout(() => openModal(), 1500);
+    modalMovesAmount.textContent = `сделано ходов: ${movesCount.value}`;
+}
+
+function endTurn() {
+    enableOpeningCards();
+    movesCount.value++;
+    resetOpenCards();
+}
+
+function disableOpeningCards(card) {
+    card.removeEventListener('click', openCard);
+}
+
+function enableOpeningCards() {
+    setTimeout(function () {
+        cards.forEach(card => card.addEventListener('click', openCard));
+    }, 1200);
+}
+
+function resetOpenCards() {
+    openCards.splice(0);
 }
 
 function newGameFn() {
@@ -100,21 +107,14 @@ function newGameFn() {
     },500); 
     setTimeout(() => cardRandomiser(cardBox), 500);
     cards.forEach(card => card.addEventListener('click', openCard));
-    input.value = '0';
+    movesCount.value = '0';
     matchedCardsNumber = 0;
 }
 
 function giveUpFn() {
     cards.forEach(allCards => allCards.classList.add('open'));
-    cards.forEach(card => card.removeEventListener('click', openCard));
+    cards.forEach(card => disableOpeningCards(card));
 }
-
-function moveCount(inpValue) {
-    let x = inpValue.value;
-    x = Number(x) + 1;
-    inpValue.value = x;
-}
-
 
 function openModal() {
     modal.classList.add('active');
@@ -129,11 +129,6 @@ function closeModal() {
 function newGameModal() {
     closeModal();
     newGameFn();
-}
-
-function addMatchedCardsNumber() {
-    matchedCardsNumber += 1;
-    console.log(matchedCardsNumber);
 }
 
 overlay.addEventListener('click', closeModal);
